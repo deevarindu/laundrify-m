@@ -49,7 +49,7 @@ export default function LoginScreen({navigation}: Props) {
             setUser(user);
             console.log("login berhasil", user)
 
-            navigation.navigate("Dashboard");
+            navigation.navigate("Main");
           } catch (error) {
             console.log("login gagal", error)
           }
