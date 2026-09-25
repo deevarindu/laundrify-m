@@ -14,10 +14,9 @@ import UsersScreen from "../screens/users/UsersScreen";
 
 export type MainTabParamList = {
   Dashboard: undefined;
-  Users: undefined;
   Orders: undefined;
   Customers: undefined;
-  Services: undefined;
+  PaymentHistory: undefined;
 };
 
 export type MainStackParamList = {
@@ -31,9 +30,13 @@ export type MainStackParamList = {
     customerId: number;
   };
 
+  Services: undefined;
+
   ServiceDetail: {
     serviceId: number;
   };
+
+  Users: undefined;
 
   UserDetail: {
     userId: number;
@@ -49,27 +52,26 @@ function MainTabs() {
       <Tab.Screen
         name="Dashboard"
         component={DashboardScreen}
-      />
-
-      <Tab.Screen
-        name="Users"
-        component={UsersScreen}
+        options={{ headerShown: false }}
       />
 
       <Tab.Screen
         name="Orders"
         component={OrdersScreen}
+        options={{ headerShown: false}}
       />
 
       <Tab.Screen
         name="Customers"
         component={CustomersScreen}
+        options={{  headerShown: false }}
       />
 
-      <Tab.Screen
-        name="Services"
-        component={ServicesScreen}
-      />
+      {/* <Tab.Screen
+        name="PaymentHistory"
+        component={PaymentHistoryScreen}
+        options={{  headerShown: false }}
+      /> */}
     </Tab.Navigator>
   );
 }
@@ -94,8 +96,20 @@ export default function MainNavigator() {
       />
 
       <Stack.Screen
+        name="Services"
+        component={ServicesScreen}
+        options={{  headerShown: false }}
+      />
+
+      <Stack.Screen
         name="ServiceDetail"
         component={ServiceDetailScreen}
+      />
+
+      <Stack.Screen
+        name="Users"
+        component={UsersScreen}
+        options={{ headerShown: false }}
       />
 
       <Stack.Screen

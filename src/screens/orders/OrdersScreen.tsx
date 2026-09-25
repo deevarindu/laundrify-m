@@ -1,3 +1,5 @@
+import Header from "../../components/Header";
+import SideMenu from "../../components/SideMenu";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs" 
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { CompositeScreenProps } from "@react-navigation/native";
@@ -6,7 +8,8 @@ import { MainTabParamList, MainStackParamList } from "../../navigation/mainNavig
 import { useEffect, useState } from "react"
 import { getOrders } from "../../services/orderService"
 import type { Order } from "../../types/order"
-import { View, Text, Button } from "react-native"
+import { View, Text, Button, ScrollView } from "react-native"
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type Props = CompositeScreenProps<
   BottomTabScreenProps<MainTabParamList, "Orders">,
@@ -16,6 +19,8 @@ type Props = CompositeScreenProps<
 export default function OrdersScreen({navigation}: Props) {
   const [orders, setOrders] = useState<Order[]>([])
   const [isLoading, setIsLoading] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
 
   useEffect(() => {
     const fetchOrders = async() => {
@@ -51,23 +56,41 @@ export default function OrdersScreen({navigation}: Props) {
   }
   
   return (
-    <View>
-      {orders.map((order) => (
-        <View key={order.id}>
-          <Text>{order.orderCode}</Text>
-          <Text>{order.customer.name}</Text>
-          <Text>{order.orderStatus}</Text>
-          <Text>{order.paymentStatus}</Text>
-          <Text>Rp {order.total}</Text>
-          
-          <Button
-            title="View Order Detail"
-            onPress={async () => navigation.navigate("OrderDetail", {
-              orderId: order.id
-            })}
-          />
-        </View>
-      ))}
-    </View>
+    <SafeAreaView>
+      <ScrollView className="mx-3">
+        <Header
+          title="Orders"
+          onMenuPress={() => setIsMenuOpen(true)}
+        />
+        <SideMenu
+          visible={isMenuOpen}
+          onClose={() => setIsMenuOpen(false)}
+          onUsersPress={() => {
+            setIsMenuOpen(false);
+            navigation.navigate("Users");
+          }}
+          onServicesPress={() => {
+            setIsMenuOpen(false);
+            navigation.navigate("Services")
+          }}
+        />
+        {orders.map((order) => (
+          <View key={order.id}>
+            <Text>{order.orderCode}</Text>
+            <Text>{order.customer.name}</Text>
+            <Text>{order.orderStatus}</Text>
+            <Text>{order.paymentStatus}</Text>
+            <Text>Rp {order.total}</Text>
+            
+            <Button
+              title="View Order Detail"
+              onPress={async () => navigation.navigate("OrderDetail", {
+                orderId: order.id
+              })}
+            />
+          </View>
+        ))}
+      </ScrollView>
+    </SafeAreaView>
   );
 }
