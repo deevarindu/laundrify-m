@@ -1,13 +1,13 @@
 import { api } from "../lib/api";
 
 export const getServices = async () => {
-  const response = await api.get("/service")
+  const response = await api.get("/service");
 
   return response.data.data;
-}
+};
 
-export const getServiceById = async (id: Number) => {
+export const getServiceById = async (id: number) => {
   const response = await api.get(`/service/${id}`);
 
   return response.data.data;
-}
+};

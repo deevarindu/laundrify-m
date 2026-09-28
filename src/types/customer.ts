@@ -3,10 +3,11 @@ export type Customer = {
   name: string;
   phone: string;
   address: string | null;
-  isActive: string;
+  isActive: boolean;
   membership: {
     id: number;
     memberCode: string;
-    isActive: string;
-  } |null;
-}
+    discountPercent: number;
+    isActive: boolean;
+  } | null;
+};

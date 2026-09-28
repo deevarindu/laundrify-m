@@ -8,11 +8,7 @@ export const getDashboardStats = (orders: Order[]) => {
   ).length;
 
   const processing = orders.filter((order) =>
-    [
-      "DICUCI",
-      "DIKERINGKAN",
-      "DISETRIKA",
-    ].includes(order.orderStatus)
+    ["DICUCI", "DIKERINGKAN", "DISETRIKA"].includes(order.orderStatus)
   ).length;
 
   const ready = orders.filter(
@@ -24,18 +20,19 @@ export const getDashboardStats = (orders: Order[]) => {
   ).length;
 
   const today = new Date();
-  const todayRevenue = orders.filter((order) => {
-    const orderDate = new Date(order.createdAt);
 
-    return (
-      orderDate.getDate() === today.getDate() &&
-      orderDate.getMonth() === today.getMonth() &&
-      orderDate.getFullYear === today.getFullYear &&
-      order.paymentStatus === "SUDAH_DIBAYAR"
-    );
-  }).reduce((total, order) => {
-    return total + Number(order.total);
-  }, 0)
+  const todayRevenue = orders
+    .filter((order) => {
+      const orderDate = new Date(order.createdAt);
+
+      return (
+        orderDate.getDate() === today.getDate() &&
+        orderDate.getMonth() === today.getMonth() &&
+        orderDate.getFullYear() === today.getFullYear() &&
+        order.paymentStatus === "SUDAH_DIBAYAR"
+      );
+    })
+    .reduce((total, order) => total + Number(order.total), 0);
 
   return {
     activeOrders,

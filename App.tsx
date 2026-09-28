@@ -14,7 +14,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <AppNavigator/>
+      <AppNavigator />
     </NavigationContainer>
   );
 }

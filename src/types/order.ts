@@ -22,5 +22,38 @@ export type Order = {
     id: number;
     amount: string;
     method: string;
-  } |null;
-}
+    paidAt: string;
+    receivedBy?: {
+      id: number;
+      name: string;
+    } | null;
+  } | null;
+  orderItems: OrderItem[];
+  orderStatusHistories: OrderStatusHistory[];
+};
+
+export type OrderItem = {
+  id: number;
+  orderId: number;
+  serviceId: number;
+  quantity: number;
+  priceSnapshot: string;
+  subtotal: string;
+  service: {
+    id: number;
+    name: string;
+    category: string;
+  };
+};
+
+export type OrderStatusHistory = {
+  id: number;
+  orderId: number;
+  orderStatus: string;
+  note: string | null;
+  changedAt: string;
+  user: {
+    id: number;
+    name: string;
+  };
+};
