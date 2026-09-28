@@ -75,7 +75,7 @@ export default function LoginScreen({ navigation }: Props) {
           <TextInput
             value={email}
             onChangeText={setEmail}
-            placeholder="you@example.com"
+            placeholder="example@mail.com"
             keyboardType="email-address"
             autoCapitalize="none"
             autoComplete="email"

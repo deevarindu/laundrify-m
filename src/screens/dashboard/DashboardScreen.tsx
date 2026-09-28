@@ -392,7 +392,7 @@ export default function DashboardScreen({ navigation }: Props) {
             ))}
           </View>
 
-          <View className="rounded-2xl border border-[#ded8cf] bg-white p-5">
+          {/* <View className="rounded-2xl border border-[#ded8cf] bg-white p-5">
             <Text className="text-sm font-medium text-[#73776d]">
               Today's Revenue
             </Text>
@@ -404,7 +404,7 @@ export default function DashboardScreen({ navigation }: Props) {
             <Text className="mt-1 text-xs text-[#73776d]">
               Total paid orders today
             </Text>
-          </View>
+          </View> */}
         </View>
 
         <View className="mb-7">

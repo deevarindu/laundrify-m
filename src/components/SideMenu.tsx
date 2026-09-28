@@ -21,14 +21,14 @@ export default function SideMenu({visible, onClose, onUsersPress, onServicesPres
           Menu
         </Text>
 
-        <Pressable
+        {/* <Pressable
           onPress={onClose}
           className="mb-4"
         >
           <Text className="text-lg">
             Close Menu
           </Text>
-        </Pressable>
+        </Pressable> */}
 
         <Pressable
           onPress={onUsersPress}

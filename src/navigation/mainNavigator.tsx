@@ -26,6 +26,7 @@ export type MainStackParamList = {
     orderId: number;
   };
   CreateOrder: undefined;
+  Orders: undefined;
   CustomerDetail: {
     customerId: number;
   };
@@ -162,6 +163,11 @@ export default function MainNavigator() {
       <Stack.Screen
         name="CreateOrder"
         component={CreateOrderScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Orders"
+        component={OrdersScreen}
         options={{ headerShown: false }}
       />
 

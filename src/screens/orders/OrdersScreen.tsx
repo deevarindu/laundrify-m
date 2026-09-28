@@ -20,6 +20,7 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Ionicons } from "@expo/vector-icons";
 
 type Props = CompositeScreenProps<
   BottomTabScreenProps<MainTabParamList, "Orders">,
@@ -225,14 +226,28 @@ export default function OrdersScreen({ navigation }: Props) {
           paddingBottom: 110,
         }}
       >
-        <View className="mb-6 mt-5">
-          <Text className="text-2xl font-bold text-[#30352a]">
-            Orders
-          </Text>
 
-          <Text className="mt-1 text-sm text-[#73776d]">
-            Manage laundry orders and monitor their progress.
-          </Text>
+        <View className="flex-row items-start justify-between mb-6 mt-5">
+          <View className="flex-1 pr-4">
+            <Text className="text-2xl font-bold text-[#30352a]">
+              Orders
+            </Text>
+
+            <Text className="mt-1 text-sm text-[#73776d]">
+              Manage laundry orders and monitor their progress.
+            </Text>
+          </View>
+
+          <Pressable
+            onPress={() => navigation.navigate("CreateOrder")}
+            className="h-11 w-11 items-center justify-center rounded-xl bg-[#8b9a6e]"
+          >
+            <Ionicons
+              name="add"
+              size={25}
+              color="#ffffff"
+            />
+          </Pressable>
         </View>
 
         {error ? (
