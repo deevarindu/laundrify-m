@@ -66,35 +66,6 @@ export default function CustomersScreen({ navigation }: Props) {
   const [error, setError] = useState("");
   const [actionError, setActionError] = useState("");
 
-  const loadData = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      setError("");
-
-      const [customerResponse, membershipResponse] =
-        await Promise.all([
-          getCustomers(),
-          api.get("/membership"),
-        ]);
-
-      setCustomers(customerResponse);
-      setMemberships(membershipResponse.data.data);
-    } catch (error) {
-      console.error(error);
-
-      if (axios.isAxiosError(error)) {
-        setError(
-          error.response?.data?.message ??
-            "Failed to load customer data."
-        );
-      } else {
-        setError("Failed to load customer data.");
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
   useFocusEffect(
     useCallback(() => {
       let isActive = true;
