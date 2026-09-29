@@ -1,6 +1,5 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { MainStackParamList } from "../navigation/mainNavigator";
 import { Pressable, Text, View } from "react-native";
+import { useAuthStore } from "../store/authStore";
 
 type Props = {
   visible: boolean;
@@ -9,7 +8,10 @@ type Props = {
   onServicesPress: () => void;
 };
 
-export default function SideMenu({visible, onClose, onUsersPress, onServicesPress}: Props) {
+export default function SideMenu({ visible, onClose, onUsersPress, onServicesPress }: Props) {
+  const user = useAuthStore((state) => state.user);
+  const isAdmin = user?.role === "ADMIN";
+
   if (!visible) {
     return null;
   }
@@ -21,32 +23,27 @@ export default function SideMenu({visible, onClose, onUsersPress, onServicesPres
           Menu
         </Text>
 
-        {/* <Pressable
-          onPress={onClose}
-          className="mb-4"
-        >
-          <Text className="text-lg">
-            Close Menu
-          </Text>
-        </Pressable> */}
+        {isAdmin && (
+          <>
+            <Pressable
+              onPress={onUsersPress}
+              className="mb-4"
+            >
+              <Text className="text-lg">
+                Users
+              </Text>
+            </Pressable>
 
-        <Pressable
-          onPress={onUsersPress}
-          className="mb-4"
-        >
-          <Text className="text-lg">
-            Users
-          </Text>
-        </Pressable>
-
-        <Pressable
-          onPress={onServicesPress}
-          className="mb-4"
-        >
-          <Text className="text-lg">
-            Services
-          </Text>
-        </Pressable>
+            <Pressable
+              onPress={onServicesPress}
+              className="mb-4"
+            >
+              <Text className="text-lg">
+                Services
+              </Text>
+            </Pressable>
+          </>
+        )}
       </View>
 
       <Pressable

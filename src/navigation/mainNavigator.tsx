@@ -12,12 +12,14 @@ import ServiceDetailScreen from "../screens/services/ServiceDetailScreen";
 import UserDetailScreen from "../screens/users/UserDetailScreen";
 import UsersScreen from "../screens/users/UsersScreen";
 import CreateOrderScreen from "../screens/orders/CreateOrderScreen";
+import PaymentHistoriesScreen from "../screens/payment/PaymentHistoriesScreen";
+import { useAuthStore } from "../store/authStore";
 
 export type MainTabParamList = {
   Dashboard: undefined;
   Orders: undefined;
   Customers: undefined;
-  PaymentHistory: undefined;
+  PaymentHistories: undefined;
 };
 
 export type MainStackParamList = {
@@ -44,6 +46,10 @@ const Tab = createBottomTabNavigator<MainTabParamList>();
 const Stack = createNativeStackNavigator<MainStackParamList>();
 
 function MainTabs() {
+  const user = useAuthStore((state) => state.user);
+
+  const isAdmin = user?.role === "ADMIN";
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -141,11 +147,23 @@ function MainTabs() {
           tabBarLabel: "Customers",
         }}
       />
-    </Tab.Navigator>
+      {isAdmin && (
+        <Tab.Screen
+          name="PaymentHistories"
+          component={PaymentHistoriesScreen}
+          options={{
+            tabBarLabel: "Payments",
+          }}
+        />
+      )}
+    </Tab.Navigator>  
   );
 }
 
 export default function MainNavigator() {
+  const user = useAuthStore((state) => state.user);
+  const isAdmin = user?.role === "ADMIN";
+
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -177,29 +195,33 @@ export default function MainNavigator() {
         options={{ headerShown: false }}
       />
 
-      <Stack.Screen
-        name="Services"
-        component={ServicesScreen}
-        options={{ headerShown: false }}
-      />
+      {isAdmin && (
+        <>
+          <Stack.Screen
+            name="Services"
+            component={ServicesScreen}
+            options={{ headerShown: false }}
+          />
 
-      <Stack.Screen
-        name="ServiceDetail"
-        component={ServiceDetailScreen}
-        options={{ headerShown: false }}
-      />
+          <Stack.Screen
+            name="ServiceDetail"
+            component={ServiceDetailScreen}
+            options={{ headerShown: false }}
+          />
 
-      <Stack.Screen
-        name="Users"
-        component={UsersScreen}
-        options={{ headerShown: false }}
-      />
+          <Stack.Screen
+            name="Users"
+            component={UsersScreen}
+            options={{ headerShown: false }}
+          />
 
-      <Stack.Screen
-        name="UserDetail"
-        component={UserDetailScreen}
-        options={{ headerShown: false }}
-      />
+          <Stack.Screen
+            name="UserDetail"
+            component={UserDetailScreen}
+            options={{ headerShown: false }}
+          />
+        </>
+      )}
     </Stack.Navigator>
   );
 }

@@ -1,16 +1,7 @@
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import type { MainStackParamList } from "../../navigation/mainNavigator";
 import { useCallback, useEffect, useState } from "react";
-import {
-  ActivityIndicator,
-  Alert,
-  Modal,
-  Pressable,
-  ScrollView,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { Alert, Modal, Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import type { Customer } from "../../types/customer";
@@ -25,22 +16,16 @@ type Props = NativeStackScreenProps<
   "CustomerDetail"
 >;
 
-export default function CustomerDetailScreen({
-  route,
-  navigation,
-}: Props) {
+export default function CustomerDetailScreen({route,navigation}: Props) {
   const { customerId } = route.params;
 
   const [customer, setCustomer] = useState<Customer | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const [isMembershipModalOpen, setIsMembershipModalOpen] =
-    useState(false);
+  const [isMembershipModalOpen, setIsMembershipModalOpen] = useState(false);
   const [discountPercent, setDiscountPercent] = useState("10");
-  const [isMembershipActive, setIsMembershipActive] =
-    useState(true);
-  const [isSavingMembership, setIsSavingMembership] =
-    useState(false);
+  const [isMembershipActive, setIsMembershipActive] = useState(true);
+  const [isSavingMembership, setIsSavingMembership] = useState(false);
 
   const fetchCustomer = useCallback(async () => {
     try {

@@ -584,8 +584,8 @@ export default function ServicesScreen({ navigation }: Props) {
               </View>
 
               {actionError ? (
-                <View className="mb-4 rounded-xl bg-[#f4e7e3] px-4 py-3">
-                  <Text className="text-sm leading-5 text-[#b85c5c]">
+                <View className="mb-5 rounded-2xl border border-[#e5c5c5] bg-white p-4">
+                  <Text className="text-sm text-[#b85c5c]">
                     {actionError}
                   </Text>
                 </View>

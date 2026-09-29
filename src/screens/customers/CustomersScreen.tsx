@@ -484,19 +484,10 @@ export default function CustomersScreen({ navigation }: Props) {
         </View>
 
         {error ? (
-          <View className="mb-5 rounded-2xl border border-[#e8caca] bg-[#f4e7e3] px-4 py-3">
-            <Text className="text-sm leading-5 text-[#b85c5c]">
+          <View className="mb-5 rounded-2xl border border-[#e5c5c5] bg-white p-4">
+            <Text className="text-sm text-[#b85c5c]">
               {error}
             </Text>
-
-            <Pressable
-              onPress={loadData}
-              className="mt-3 self-start rounded-lg bg-white px-3 py-2"
-            >
-              <Text className="text-xs font-semibold text-[#4b5141]">
-                Try Again
-              </Text>
-            </Pressable>
           </View>
         ) : null}
 
