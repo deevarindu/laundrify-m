@@ -16,6 +16,7 @@ import { api } from "../../lib/api";
 import { useAuthStore } from "../../store/authStore";
 import type { Order } from "../../types/order";
 import type { Service } from "../../types/service";
+import { getPayments } from "../../services/paymentService";
 
 type Props = CompositeScreenProps<
   BottomTabScreenProps<MainTabParamList, "Dashboard">,
@@ -138,10 +139,10 @@ export default function DashboardScreen({ navigation }: Props) {
         setIsLoading(true);
         setError("");
 
-        const [ordersData, paymentsResponse, servicesData] =
+        const [ordersData, paymentsData, servicesData] =
           await Promise.all([
             getOrders(),
-            api.get("/payment"),
+            getPayments(),
             getServices(),
           ]);
 
@@ -150,7 +151,7 @@ export default function DashboardScreen({ navigation }: Props) {
         }
 
         setOrders(ordersData);
-        setPayments(paymentsResponse.data.data);
+        setPayments(paymentsData);
         setServices(servicesData);
       } catch (error) {
         console.log("GAGAL FETCH DASHBOARD:", error);

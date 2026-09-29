@@ -23,6 +23,9 @@ import { api } from "../../lib/api";
 import type { Payment, PaymentMethod } from "../../types/payment";
 import type { Order } from "../../types/order";
 import type { Customer } from "../../types/customer";
+import { getPayments } from "../../services/paymentService";
+import { getOrders } from "../../services/orderService";
+import { getCustomers } from "../../services/customerService";
 
 type Props = CompositeScreenProps<
   BottomTabScreenProps<MainTabParamList,"PaymentHistories">,
@@ -85,22 +88,22 @@ export default function PaymentHistoriesScreen({navigation}: Props) {
           setError("");
 
           const [
-            paymentsResponse,
-            ordersResponse,
-            customersResponse,
+            paymentsData,
+            ordersData,
+            customersData,
           ] = await Promise.all([
-            api.get("/payment"),
-            api.get("/order"),
-            api.get("/customer"),
+            getPayments(),
+            getOrders(),
+            getCustomers(),
           ]);
 
           if (!isActive) {
             return;
           }
 
-          setPayments(paymentsResponse.data.data);
-          setOrders(ordersResponse.data.data);
-          setCustomers(customersResponse.data.data);
+          setPayments(paymentsData);
+          setOrders(ordersData);
+          setCustomers(customersData);
         } catch (error) {
           if (!isActive) {
             return;
